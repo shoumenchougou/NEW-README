@@ -4,7 +4,7 @@ RWKV(pronounced as "RwaKuv" (rʌkuv in IPA)) is an RNN with Transformer-level LL
 
 So it's combining the best of RNN and transformer - **great performance, fast inference, saves VRAM, fast training, "infinite" ctx_len, and free sentence embedding** (using the final hidden state).
 
-![MQAR](./img/RWKV-6-MQAR.png)
+![RWKV-v6-MQAR](./img/RWKV-v6-MQAR.png)
 
 ## Main Links Of RWKV 
 
@@ -173,7 +173,7 @@ pip install pytorch-lightning==1.9.5 deepspeed wandb ninja --upgrade
 
 ### HOW TO TEST TRAINING RWKV-5 on MiniPile (1.5G tokens) ？
 
-#### download MiniPile dataset
+#### Download MiniPile Dataset
 
 ```
 # mkdir -p data
@@ -378,16 +378,22 @@ ffn.receptance.weight => zero
 
 ## BenchMark
 
+MQAR for non-transformer architecture:
+
+![RWKV-v6-MQAR](./img/RWKV-v6-MQAR.png)
+
+Long Context Experiments for RWKV v4/v5/v6 :
+
+![RWKV-v6-LongCTX.png](./img/RWKV-v6-LongCTX.png)
+
 English and Multilingual benchmarks for RWKV-6 7B:
 
 ![RWKV-v6-7B-BenchMark](./img/RWKV-v6-7B-BenchMark.png)
 
-[Uncheatable Eval](https://github.com/Jellyfish042/uncheatable_eval) for RWKV-6 7B:
+[Uncheatable Eval](https://github.com/Jellyfish042/uncheatable_eval) （testing LLMs on real-time, newly generated data）for RWKV-6 7B:
 
 ![RWKV-v6-7B-Uncheatable-Eval](./img/RWKV-v6-7B-Uncheatable-Eval.png)
 
-> [!TIP]
-> Uncheatable Eval testing LLMs on real-time, newly generated data
 
 ## Cool Community RWKV Projects
 
