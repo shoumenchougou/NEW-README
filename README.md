@@ -48,15 +48,13 @@ RWKV v6 illustrated:
 
 <img src="./img/rwkv-x060.png" alt="RWKV-v6" width="500">
 
-You can learn about the architecture of RWKV-V6 at the following link:
+You can learn about the architecture of RWKV-V5/V6 at the following link:
 
 - **RWKV-6 GPT-mode demo code (with comments and explanations)**: https://github.com/BlinkDL/RWKV-LM/blob/main/RWKV-v5/rwkv_v6_demo.py
 
 - **RWKV-6 RNN-mode demo in 250 lines(with tokenizer too):** https://github.com/BlinkDL/ChatRWKV/blob/main/RWKV_v6_demo.py
 
 - **RWKV v5 in 250 lines** (with tokenizer too): https://github.com/BlinkDL/ChatRWKV/blob/main/RWKV_v5_demo.py
-
-and try it with online Demo :
 
 ### Older Architecture
 
@@ -68,7 +66,7 @@ The RWKV community published the first paper on the V4 architecture. See :
 
 - **RWKV v4 in 150 lines** (model, inference, text generation): https://github.com/BlinkDL/ChatRWKV/blob/main/RWKV_in_150_lines.py
 
-**RWKV v4 introduction, and in 100 lines of numpy**: https://johanwind.github.io/2023/03/23/rwkv_overview.html https://johanwind.github.io/2023/03/23/rwkv_details.html
+- **RWKV v4 introduction, and in 100 lines of numpy**: https://johanwind.github.io/2023/03/23/rwkv_overview.html https://johanwind.github.io/2023/03/23/rwkv_details.html
 
 Due to outdated architecture design, the earlier RWKV architecture (V3/V2/V1) is only used as a historical archive.
 
@@ -234,11 +232,11 @@ python make_data.py demo.jsonl 3 4096
 - convert `demo.jsonl` to binidx data,save as `demo.bin` & `demo.idx`
 - compute "`magic_prime`" for ctxlen 4096 
 
->[!TIP] SFT jsonl data 
+>[!TIP] 
 >
->simple SFT: repeat your SFT data 3 or 4 times in `make_data.py`. more repetition leads to overfitting.
+>simple SFT jsonl data: repeat your SFT data 3 or 4 times in `make_data.py`. more repetition leads to overfitting.
 >
->advanced SFT: repeat your SFT data 3 or 4 times in your jsonl (note: `make_data.py` will shuffle all jsonl items) => add some base data (such as slimpajama) to your jsonl => and only repeat 1 times in make_data.py.
+>advanced SFT jsonl data: repeat your SFT data 3 or 4 times in your jsonl (note: `make_data.py` will shuffle all jsonl items) => add some base data (such as slimpajama) to your jsonl => and only repeat 1 times in make_data.py.
 
 #### Modifying Training Parameters
 
@@ -267,7 +265,10 @@ python make_data.py demo.jsonl 3 4096
 
 - `--my_exit_tokens`" and "`--magic_prime` should be computed when using `RWKV-v5/make_data.py` . If you get a ready-made bindix dataset, you can manually calculate its `--magic_prime` parameter :
 
-> [!NOTE] --my_exit_tokens and --magic_prime
+> [!NOTE] 
+> 
+> **`--my_exit_tokens` & `--magic_prime`**
+> 
 > The "epoch" in `train.py` is "mini-epoch" (not real epoch. only for convenience), and 1 mini-epoch = 40320 * ctx_len tokens.
 > 
 > For example, if your binidx has 1498226207 tokens and ctxlen=4096, set "`--my_exit_tokens 1498226207`" (this will override `epoch_count`), and it will be 1498226207/(40320 * 4096) = 9.07 miniepochs. The trainer will auto-exit after "`--my_exit_tokens`" tokens. 
@@ -275,9 +276,9 @@ python make_data.py demo.jsonl 3 4096
 > Set "`--magic_prime`" to the largest 3n+2 prime smaller than datalen/ctxlen-1 (= 1498226207/4096-1 = 365776), which is "--magic_prime 365759" in this case.
 
 **Parameters can keep the default value**
-```bash
+```shell
 --my_testing x060 # base model type, x060 => rwkv-6.0 , x052 => rwkv-5.2
---ctx_len # Maximum context length, if modifying this value, remember to also compute and modify --magic_prime
+--ctx_len 512 # Maximum context length, if modifying this value, remember to also compute and modify --magic_prime
 --my_pile_stage 3 # Set to 1 for generating rwkv-init.pth,  3 for training
 --epoch_count 999999 # Total training epochs, will be overridden by --my_exit_tokens parameter
 --epoch_begin 0 # Initial training epoch, indicating to start loading from the N-th epoch
@@ -287,15 +288,15 @@ python make_data.py demo.jsonl 3 4096
 --micro_bsz 16 # Micro batch size (batch size per GPU), increasing it may be better but takes more VRAM
 --pre_ffn 0 # Replace the first att layer with ffn,default 0 (sometimes 1 better)
 --head_qk 0 # Usually keep the default value 0 (off)
---lr_init # Initial learning rate, use smaller values like 1e-5 for fine-tuning
---lr_final # Final learning rate, use smaller values like 1e-5 for fine-tuning
+--lr_init 1e-5 # Initial learning rate, use smaller values like 1e-5 for fine-tuning
+--lr_final 1e-5 # Final learning rate, use smaller values like 1e-5 for fine-tuning
 --warmup_steps 10 # Warm-up steps, try 50 if loading a model
 --beta1 0.9 # Beta1 parameter of Adam optimizer, usually 0.9
 --beta2 0.99 # Beta2 parameter of Adam optimizer, use 0.999 when nearing convergence
 --adam_eps 1e-8 # Epsilon parameter of Adam optimizer, usually 1e-8
 --my_pile_edecay 0 # Pile decay setting, usually set to 0
 --data_type binidx # Format of training  data, supports "utf-8", "utf-16le", "numpy", "binidx", "dummy", "wds_img", "uint16"
---vocab_size # Vocabulary size, default 65536, setting to 0 means the model will determine the vocabulary size automatically
+--vocab_size 65536 # Vocabulary size, default 65536, setting to 0 means the model will determine the vocabulary size automatically
 --weight_decay 0.001 # Weight decay, default 0.001, can try 0.1 / 0.01 / 0.001
 --epoch_save 10 # Save the trained model every 10 "miniepochs" ，mind your storage space when set to smaller.
 --head_size_a 64 # Size of attention head, default 64, can try increasing this value for larger training models
@@ -304,7 +305,7 @@ python make_data.py demo.jsonl 3 4096
 --precision bf16 # Training precision, default bf16, supports "fp32", "tf32", "fp16", "bf16"
 --strategy deepspeed_stage_2 # Training strategy parameter for lightning, default deepspeed_stage_2
 --grad_cp 1 # Gradient accumulation steps, 1 => slower training & save VRAM; 0 => faster & need more VRAM
---enable_progress_bar # Enable progress bar
+--enable_progress_bar True # Enable progress bar
 --ds_bucket_mb 2 # Deep learning speed size, set to 2 for consumer GPUs,200 for A100 / H100 (affects speed & vram usage)
 ```
 
@@ -361,9 +362,9 @@ ffn.receptance.weight => zero
 
 ### Additional Content For Training
 
-> [!TIP] Tips for small model / small data:
+> [!TIP] 
 > 
->  When I train RWKV music models, I use deep & narrow (such as L29-D512) dimensions, and apply wd and dropout (such as `wd=2` , `dropout=0.02`).
+> Tips for small model / small data:  When I train RWKV music models, I use deep & narrow (such as L29-D512) dimensions, and apply wd and dropout (such as `wd=2` , `dropout=0.02`).
 > 
 >  Note RWKV-LM dropout is very effective - use `1/4` of your usual value.
 
