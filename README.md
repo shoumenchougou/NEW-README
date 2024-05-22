@@ -362,6 +362,7 @@ ffn.receptance.weight => zero
 ### Additional Content For Training
 
 > [!TIP] Tips for small model / small data:
+> 
 >  When I train RWKV music models, I use deep & narrow (such as L29-D512) dimensions, and apply wd and dropout (such as `wd=2` , `dropout=0.02`).
 > 
 >  Note RWKV-LM dropout is very effective - use `1/4` of your usual value.
@@ -378,19 +379,27 @@ ffn.receptance.weight => zero
 
 ## BenchMark
 
+### MQAR 
+
 MQAR for non-transformer architecture:
 
 ![RWKV-v6-MQAR](./img/RWKV-v6-MQAR.png)
+
+### Long Context Experiments
 
 Long Context Experiments for RWKV v4/v5/v6 :
 
 ![RWKV-v6-LongCTX.png](./img/RWKV-v6-LongCTX.png)
 
-English and Multilingual benchmarks for RWKV-6 7B:
+### English and Multilingual Benchmark
+
+English and Multilingual Benchmarks for RWKV-6 7B:
 
 ![RWKV-v6-7B-BenchMark](./img/RWKV-v6-7B-BenchMark.png)
 
-[Uncheatable Eval](https://github.com/Jellyfish042/uncheatable_eval) （testing LLMs on real-time, newly generated data）for RWKV-6 7B:
+### Uncheatable Eval
+
+[Uncheatable Eval](https://github.com/Jellyfish042/uncheatable_eval) （testing LLMs on real-time, newly generated data） for RWKV-6 7B:
 
 ![RWKV-v6-7B-Uncheatable-Eval](./img/RWKV-v6-7B-Uncheatable-Eval.png)
 

@@ -12,7 +12,7 @@ RWKV homepage: https://www.rwkv.com
 
 RWKV-6 RNN-mode demo: https://github.com/BlinkDL/ChatRWKV/blob/main/RWKV_v6_demo.py
 
-![MQAR](Research/RWKV-6-MQAR.png)
+![MQAR](./img/RWKV-6-MQAR.png)
 
 ### HOW TO TEST TRAINING RWKV-5 on MiniPile (1.5G tokens) ###
 
@@ -108,7 +108,7 @@ RWKV is an RNN with Transformer-level LLM performance, which can also be directl
 
 So it's combining the best of RNN and transformer - **great performance, fast inference, saves VRAM, fast training, "infinite" ctx_len, and free sentence embedding** (using the final hidden state).
 
-![RWKV-v5-benchmark-1](RWKV-v5-benchmark-1.png)
+![RWKV-v5-benchmark-1](./img/RWKV-v5-benchmark-1.png)
 
 **RWKV Runner GUI** https://github.com/josStorer/RWKV-Runner with one-click install and API
 
@@ -174,27 +174,27 @@ https://github.com/harrisonvanderbyl/rwkv-cpp-cuda Fast GPU inference with cuda/
 
 **RWKV v4 preprint** https://arxiv.org/abs/2305.13048
 
-![RWKV-paper](RWKV-paper.png)
+![RWKV-paper](./img/RWKV-paper.png)
 
 **RWKV v4 introduction, and in 100 lines of numpy**: https://johanwind.github.io/2023/03/23/rwkv_overview.html https://johanwind.github.io/2023/03/23/rwkv_details.html
 
 RWKV v6 illustrated:
 
-![RWKV-v6](rwkv-x060.png)
+![RWKV-v6](./img/rwkv-x060.png)
 
 A cool paper (Spiking Neural Network) using RWKV: https://github.com/ridgerchu/SpikeGPT
 
 You are welcome to join the RWKV discord https://discord.gg/bDSBUMeFpc to build upon it. We have plenty of potential compute (A100 40Gs) now (thanks to Stability and EleutherAI), so if you have interesting ideas I can run them.
 
-![RWKV-eval2](RWKV-eval2.png)
+![RWKV-eval2](./img/RWKV-eval2.png)
 
 RWKV [loss vs token position] for 10000 ctx4k+ documents in Pile. RWKV 1B5-4k is mostly flat after ctx1500, but 3B-4k and 7B-4k and 14B-4k have some slopes, and they are getting better. This debunks the old view that RNNs cannot model long ctxlens. We can predict that RWKV 100B will be great, and RWKV 1T is probably all you need :)
 
-![RWKV-ctxlen](RWKV-ctxlen.png)
+![RWKV-ctxlen](./img/RWKV-ctxlen.png)
 
 ChatRWKV with RWKV 14B ctx8192:
 
-![RWKV-chat](RWKV-chat.png)
+![RWKV-chat](./img/RWKV-chat.png)
 
 I believe RNN is a better candidate for fundamental models, because: (1) It's more friendly for ASICs (no kv cache). (2) It's more friendly for RL. (3) When we write, our brain is more similar to RNN. (4) The universe is like an RNN too (because of locality). Transformers are non-local models.
 
@@ -207,9 +207,9 @@ Training speed: (new training code) RWKV-4 14B BF16 ctxlen4096 = 114K tokens/s o
 I am doing image experiments too (For example: https://huggingface.co/BlinkDL/clip-guided-binary-autoencoder) and RWKV will be able to do txt2img diffusion :) My idea: 256x256 rgb image -> 32x32x13bit latents -> apply RWKV to compute transition probability for each of the 32x32 grid -> pretend the grids are independent and "diffuse" using these probabilities.
 
 Smooth training - no loss spikes! (lr & bsz change around 15G tokens)
-![RWKV-loss](RWKV-loss.png)
+![RWKV-loss](./img/RWKV-loss.png)
 
-![RWKV-eval](RWKV-eval.png)
+![RWKV-eval](./img/RWKV-eval.png)
 
 All of the trained models will be open-source. Inference is very fast (only matrix-vector multiplications, no matrix-matrix multiplications) even on CPUs, so you can even run a LLM on your phone.
 
@@ -217,7 +217,7 @@ How it works: RWKV gathers information to a number of channels, which are also d
 
 **RWKV is parallelizable because the time-decay of each channel is data-independent (and trainable)**. For example, in usual RNN you can adjust the time-decay of a channel from say 0.8 to 0.5 (these are called "gates"), while in RWKV you simply move the information from a W-0.8-channel to a W-0.5-channel to achieve the same effect. Moreover, you can fine-tune RWKV into a non-parallelizable RNN (then you can use outputs of later layers of the previous token) if you want extra performance.
 
-![RWKV-formula](RWKV-formula.png)
+![RWKV-formula](./img/RWKV-formula.png)
 
 Here are some of my TODOs. Let's work together :)
 
@@ -237,7 +237,7 @@ Tweet from Sepp Hochreiter (thank you!): https://twitter.com/HochreiterSepp/stat
 
 You can find me (BlinkDL) in the EleutherAI Discord too: https://www.eleuther.ai/get-involved/
 
-![RWKV-demo](RWKV-demo.png)
+![RWKV-demo](./img/RWKV-demo.png)
 
 ## Quick start
 
@@ -372,7 +372,7 @@ xr = x * time_mix_r + xx * (1 - time_mix_r)
 xg = x * time_mix_g + xx * (1 - time_mix_g)
 ```
 
-![RWKV-v6](RWKV-v6.png)
+![RWKV-v6](./img/RWKV-v6.png)
 
 ### RWKV-7
 
@@ -491,7 +491,7 @@ Moreover it's using a number of my tricks, such as:
 
 ## The pseudocode (execution from top to bottom):
 
-![RWKV-v2-RNN](RWKV-v2-RNN.png)
+![RWKV-v2-RNN](./img/RWKV-v2-RNN.png)
 
 The a b c d factors work together to build a time-decay curve: [X, 1, W, W^2, W^3, ...].
 
@@ -619,7 +619,7 @@ The self.value, self.receptance matrices are all initialized to zero.
 
 ## RWKV-4 improvements
 
-![RWKV-v3-plan](RWKV-v3-plan.png)
+![RWKV-v3-plan](./img/RWKV-v3-plan.png)
 
 ## From GPT to RWKV (the formulas)
 
@@ -721,7 +721,7 @@ Try this: fixed lr for 1 hr, then exponential decay to 0.2 * lr in 12 hrs, and c
 
 In the last three plots, black = predicted loss curve of the new LR schedule, blue = original (unoptimized) real loss curve, orange = new LR schedule.
 
-![better_lr_schedule](Research/better_lr_schedule.png)
+![better_lr_schedule](./img/better_lr_schedule.png)
 
 # RWKV v1
 
@@ -830,7 +830,7 @@ logits[probs < limit] = -float('Inf')
 
 Character-level loss on simplebooks-92 dataset https://dldata-public.s3.us-east-2.amazonaws.com/simplebooks.zip
 
-![RWKV-vs-MHA](RWKV-vs-MHA.png)
+![RWKV-vs-MHA](./img/RWKV-vs-MHA.png)
 
 Gray: usual MHA+Rotary+GeGLU - performance not as good. 17.2M params.
 
@@ -859,4 +859,4 @@ We use careful initialization for RWKV to get fast convergence - orthogonal matr
 
 Some learned time_w examples:
 
-![RWKV-time-w](RWKV-time-w.png)
+![RWKV-time-w](./img/RWKV-time-w.png)
