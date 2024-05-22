@@ -1,6 +1,6 @@
 # RWKV-V4
 
->  [!IMPORTANT]
+>  [!NOTE]
 > 
 >  **The following content is an archive of RWKV-V4 content, RWKV-V4 is a large version of RWKV.** 
 

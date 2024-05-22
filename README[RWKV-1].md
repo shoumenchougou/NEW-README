@@ -1,6 +1,10 @@
 # RWKV-V1
 
-> 💡 **The following content is an archive of RWKV-V1 content,RWKV-V1 [first committed](https://github.com/BlinkDL/RWKV-LM/commit/4c6db5607c6f94c38c10004efb292510bc71ba59) on Aug 9, 2021.**
+> [!NOTE]
+> 
+>  **The following content is an archive of RWKV-V1 content , RWKV-V1 [first committed](https://github.com/BlinkDL/RWKV-LM/commit/4c6db5607c6f94c38c10004efb292510bc71ba59) on Aug 9, 2021.**
+
+---
 
 We propose the RWKV language model, with alternating time-mix and channel-mix layers:
 

@@ -1,6 +1,8 @@
 # RWKV-V3
 
-> 💡 **The following content is an archive of RWKV-V3 content, RWKV-V3 [first committed](https://github.com/BlinkDL/RWKV-LM/commit/09132dea52a201f67251a8f802d6a5f5b4a3695b) on Jun 27, 2022** 
+> [!NOTE]
+> 
+> **The following content is an archive of RWKV-V3 content, RWKV-V3 [first committed](https://github.com/BlinkDL/RWKV-LM/commit/09132dea52a201f67251a8f802d6a5f5b4a3695b) on Jun 27, 2022** 
 
 
 ## Explaining the code for RWKV-3 GPT mode

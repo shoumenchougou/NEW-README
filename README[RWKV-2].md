@@ -1,6 +1,8 @@
 # RWKV-V2
 
-> 💡 **The following content is an archive of RWKV-V2 content, RWKV-V2 [first committed](https://github.com/BlinkDL/RWKV-LM/commit/1f189a4034c7ff1d0c145ef556327de1fa90da51) on Mar 22, 2022.**
+> [!NOTE]
+> 
+> **The following content is an archive of RWKV-V2 content, RWKV-V2 [first committed](https://github.com/BlinkDL/RWKV-LM/commit/1f189a4034c7ff1d0c145ef556327de1fa90da51) on Mar 22, 2022.**
 >
 > Last version of V2 : [README](https://github.com/BlinkDL/RWKV-LM/blob/92da17d68f9ecb6ab1b8c5119c222c25c6991c06/README.md)
 
